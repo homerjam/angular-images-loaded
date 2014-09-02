@@ -4,29 +4,46 @@ angular.module('angular-images-loaded', []).directive('imagesLoaded', ['$timeout
         return {
             restrict: 'AC',
             link: function(scope, element, attrs) {
-                var events = scope.$eval(attrs.imagesLoaded);
+                var events = scope.$eval(attrs.imagesLoaded),
+                    className = attrs.imagesLoadedClass || 'images-loaded',
+                    classUsed = element.hasClass(className);
 
-                $timeout(function() {
-                    scope.$emit('imagesLoaded:started', {
-                        scope: scope,
-                        element: element
-                    });
+                var init = function() {
+                    $timeout(function() {
+                        if (classUsed) {
+                            element.addClass(className);
+                        }
 
-                    var imgLoad = imagesLoaded(element[0], function() {
-                        scope.$emit('imagesLoaded:loaded', {
+                        scope.$emit('imagesLoaded:started', {
                             scope: scope,
                             element: element
                         });
 
-                        element.removeClass('images-loaded images-loaded: ' + attrs.imagesLoaded + ';');
+                        var imgLoad = imagesLoaded(element[0], function() {
+                            scope.$emit('imagesLoaded:loaded', {
+                                scope: scope,
+                                element: element
+                            });
+
+                            element.removeClass(className + ' images-loaded: ' + attrs.imagesLoaded + ';');
+                        });
+
+                        if (typeof(events) !== undefined) {
+                            angular.forEach(events, function(fn, eventName) {
+                                imgLoad.on(eventName, fn);
+                            });
+                        }
+                    });
+                };
+
+                if (attrs.imagesLoadedWatch) {
+                    scope.$watch(attrs.imagesLoadedWatch, function(n) {
+                        init();
                     });
 
-                    if (typeof(events) !== undefined) {
-                        angular.forEach(events, function(fn, eventName) {
-                            imgLoad.on(eventName, fn);
-                        });
-                    }
-                });
+                } else {
+                    init();
+                }
             }
         };
     }
