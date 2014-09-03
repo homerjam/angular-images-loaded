@@ -10,22 +10,30 @@ angular.module('angular-images-loaded', []).directive('imagesLoaded', ['$timeout
 
                 var init = function() {
                     $timeout(function() {
-                        if (classUsed) {
-                            element.addClass(className);
-                        }
+                        scope.$imagesLoaded = false;
 
                         scope.$emit('imagesLoaded:started', {
                             scope: scope,
                             element: element
                         });
 
+                        if (classUsed) {
+                            element.addClass(className);
+                        }
+
                         var imgLoad = imagesLoaded(element[0], function() {
+                            scope.$imagesLoaded = true;
+
                             scope.$emit('imagesLoaded:loaded', {
                                 scope: scope,
                                 element: element
                             });
 
                             element.removeClass(className + ' images-loaded: ' + attrs.imagesLoaded + ';');
+
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
                         });
 
                         if (typeof(events) !== undefined) {
