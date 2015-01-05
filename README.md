@@ -2,6 +2,7 @@
 
 Super simple Angular directive to wrap [imagesLoaded](https://github.com/desandro/imagesloaded) plugin.
 
+[Demo](http://homerjam.github.io/angular-images-loaded/)
 
 ## Installation
 
@@ -39,7 +40,7 @@ Remember to include `imagesloaded.pkgd.js` somewhere
 		};
 	
 	});
-	
+
 
 ## Add directive to element
 
