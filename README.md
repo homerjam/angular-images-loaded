@@ -1,16 +1,19 @@
 # angular-images-loaded
 
-Super simple Angular directive to wrap [imagesLoaded](https://github.com/desandro/imagesloaded) plugin
+Super simple Angular directive to wrap [imagesLoaded](https://github.com/desandro/imagesloaded) plugin.
+
 
 ## Installation
 
 `$ bower install angular-images-loaded`
 
+
 ## Usage
 
 Remember to include `imagesloaded.pkgd.js` somewhere
 
-## Include to your dependencies
+
+## Add module to your app dependencies
 
 	angular.module('yourModule', [..., 'angular-images-loaded']);
 
@@ -36,8 +39,12 @@ Remember to include `imagesloaded.pkgd.js` somewhere
 		};
 	
 	});
+	
 
-## Add directive to element, if using class method then class will be removed on load - useful for css transitions etc.
+## Add directive to element
+
+Note: If using class method then class will be removed on load - useful for css transitions etc.
+
 	<div class="images-loaded">
 	
 		<img src="kitten.jpg">
