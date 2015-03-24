@@ -8,6 +8,9 @@ Super simple Angular directive to wrap [imagesLoaded](https://github.com/desandr
 
 `$ bower install angular-images-loaded`
 
+or
+
+`$ npm install angular-images-loaded`
 
 ## Usage
 
