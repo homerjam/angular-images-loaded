@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/homerjam/angular-images-loaded/issues"
   },
-  "homepage": "https://github.com/homerjam/angular-images-loaded"
+  "homepage": "https://github.com/homerjam/angular-images-loaded",
+  "dependencies": {
+    "angular": "^1.2.0",
+    "imagesloaded": "^3.1.8"
+  }
 }
