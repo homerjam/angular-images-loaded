@@ -8,7 +8,7 @@ angular.module('angular-images-loaded').directive('imagesLoaded', ['$timeout', '
         return {
             restrict: 'AC',
             link: function(scope, element, attrs) {
-                var events = scope.$eval(attrs.imagesLoaded),
+                var events = scope.$eval(attrs.imagesLoaded) || scope.$eval(attrs.imagesLoadedEvents),
                     className = attrs.imagesLoadedClass || 'images-loaded',
                     classUsed = element.hasClass(className);
 

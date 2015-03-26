@@ -25,8 +25,9 @@ Remember to include `imagesloaded.pkgd.js` somewhere
 ## Register events in controller
 
 	app.controller('MyCtrl', function($scope) {
+		var ctrl = this;
 	
-		$scope.imgLoadedEvents = {
+		ctrl.imgLoadedEvents = {
 	
 			always: function(instance) {
 				// Do stuff
@@ -49,19 +50,19 @@ Remember to include `imagesloaded.pkgd.js` somewhere
 
 Note: If using class method then class will be removed on load - useful for css transitions etc.
 
-	<div class="images-loaded">
+	<div class="images-loaded" images-loaded-events="ctrl.imgLoadedEvents">
 	
 		<img src="kitten.jpg">
 	
 	</div>
 	
-	<div class="images-loaded: imgLoadedEvents;">
+	<div class="images-loaded: ctrl.imgLoadedEvents;">
 	
 		<img src="doge.jpg">
 	
 	</div>
 	
-	<div images-loaded="imgLoadedEvents">
+	<div images-loaded="ctrl.imgLoadedEvents">
 	
 		<img src="kittens.jpg">
 	
