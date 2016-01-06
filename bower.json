@@ -1,15 +1,15 @@
 {
   "name": "angular-images-loaded",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "Super simple Angular directive to wrap imagesLoaded plugin",
   "main": "angular-images-loaded.js",
   "ignore": [
-  	"*",
-  	"!angular-images-loaded.js",
-  	"!README.md"
+    "*",
+    "!angular-images-loaded.js",
+    "!README.md"
   ],
   "dependencies": {
     "angular": "~1.2.0",
-    "imagesloaded": "~3.1.5"
+    "imagesloaded": "~4.0.0"
   }
 }

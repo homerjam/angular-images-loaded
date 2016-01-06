@@ -1,31 +1,46 @@
 {
   "name": "imagesloaded",
-  "version": "3.1.8",
+  "version": "4.0.0",
   "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
   "dependencies": {
-    "eventEmitter": "4.x",
-    "eventie": ">=1.0.4 <2"
+    "eventEmitter": ">=4.2 <5.0"
   },
   "devDependencies": {
     "jquery": ">=1.9 <2.0",
-    "qunit": ">=1.10"
+    "qunit": "~1.20.0"
   },
   "ignore": [
     "**/.*",
     "test",
-    "component.json",
-    "imagesloaded.jquery.json",
-    "package.json"
+    "package.json",
+    "node_modules",
+    "bower_components",
+    "tests",
+    "sandbox/",
+    "contributing.md"
   ],
-  "homepage": "https://github.com/desandro/imagesloaded",
-  "_release": "3.1.8",
+  "homepage": "http://imagesloaded.desandro.com",
+  "authors": [
+    "David DeSandro"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "images"
+  ],
+  "license": "MIT",
+  "_release": "4.0.0",
   "_resolution": {
     "type": "version",
-    "tag": "v3.1.8",
-    "commit": "1d3029fd6123d1560fefaf195865650134089506"
+    "tag": "v4.0.0",
+    "commit": "a77104be4ba952e994f7f24a1176ceb13d4311b3"
   },
   "_source": "git://github.com/desandro/imagesloaded.git",
-  "_target": "~3.1.5",
-  "_originalSource": "imagesloaded"
+  "_target": "~4.0.0",
+  "_originalSource": "imagesloaded",
+  "_direct": true
 }
