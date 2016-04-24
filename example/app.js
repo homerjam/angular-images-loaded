@@ -1,25 +1,39 @@
-angular.module('ExampleCtrl', []).controller('ExampleCtrl', ['$scope',
-    function($scope) {
+angular.module('ExampleCtrl', [])
+  .controller('ExampleCtrl', ['$scope',
+    function ($scope) {
+      var vm = this;
 
-        $scope.imgLoadedEvents = {
+      var i = 0;
+      var images = ['example/test.jpg', 'example/test2.jpg'];
 
-            always: function(instance) {
-                // Do stuff
-            },
+      vm.image = images[i];
 
-            done: function(instance) {
-                angular.element(instance.elements[0]).addClass('loaded');
+      vm.clickImage = function () {
+        i++;
+        if (i > 1) {
+          i = 0;
+        }
 
-                console.log('loaded');
-            },
+        vm.image = images[i];
+      };
 
-            fail: function(instance) {
-                // Do stuff
-            }
+      $scope.$on('imagesLoaded:started', function(event, element){
+        console.log('started', element);
+      });
 
-        };
-
+      vm.imageLoadedEvents = {
+        always: function (instance) {
+          // Do stuff
+        },
+        done: function (instance) {
+          angular.element(instance.elements[0]).addClass('loaded');
+          console.log('loaded');
+        },
+        fail: function (instance) {
+          // Do stuff
+        }
+      };
     }
-]);
+  ]);
 
-angular.module('ExampleApp', ['angular-images-loaded', 'ExampleCtrl']).config(function() {});
+angular.module('ExampleApp', ['hj.imagesLoaded', 'ExampleCtrl']);

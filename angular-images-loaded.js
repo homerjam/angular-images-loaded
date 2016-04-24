@@ -1,59 +1,61 @@
 (function () {
+  'use strict';
   angular.module('hj.imagesLoaded', [])
-    .directive('imagesLoaded', ['$timeout',
-      function ($timeout) {
-        'use strict';
-        return {
-          restrict: 'AC',
-          link: function (scope, element, attrs) {
-            var events = scope.$eval(attrs.imagesLoaded) || scope.$eval(attrs.imagesLoadedEvents);
-            var className = attrs.imagesLoadedClass || 'images-loaded';
-            var classUsed = element.hasClass(className);
+    .directive('imagesLoaded', function () {
+      return {
+        restrict: 'AC',
+        scope: {
+          imagesLoaded: '=?',
+          imagesLoadedOptions: '=?',
+          imagesLoadedEvents: '=?',
+          imagesLoadedClass: '=?',
+          imagesLoadedWatch: '=?',
+        },
+        bindToController: true,
+        controllerAs: 'vm',
+        controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+          var vm = this;
 
-            scope.$imagesLoaded = false;
+          var events = vm.imagesLoaded || vm.imagesLoadedEvents;
+          var options = vm.imagesLoadedOptions || {};
+          var className = vm.imagesLoadedClass || 'images-loaded';
+          var classUsed = $element.hasClass(className);
 
-            var init = function () {
-              scope.$emit('imagesLoaded:started', {
-                scope: scope,
-                element: element,
-              });
+          var init = function () {
+            $scope.$emit('imagesLoaded:started', $element);
 
-              if (classUsed) {
-                element.addClass(className);
-              }
-
-              var imgLoad = imagesLoaded(element[0], function () {
-                scope.$emit('imagesLoaded:loaded', {
-                  scope: scope,
-                  element: element,
-                });
-
-                element.removeClass(className + ' images-loaded: ' + attrs.imagesLoaded + ';');
-
-                $timeout(function () {
-                  scope.$imagesLoaded = true;
-                });
-              });
-
-              if (typeof events !== 'undefined') {
-                angular.forEach(events, function (fn, eventName) {
-                  imgLoad.on(eventName, fn);
-                });
-              }
-            };
-
-            if (attrs.imagesLoadedWatch) {
-              scope.$watch(attrs.imagesLoadedWatch, function () {
-                $timeout(init);
-              });
-            } else {
-              $timeout(init);
+            if (classUsed) {
+              $element.addClass(className);
             }
 
+            var imgLoad = imagesLoaded($element[0], options, function () {
+              $scope.$emit('imagesLoaded:loaded', $element);
+
+              $element.removeClass(className);
+
+              $scope.$apply(function () {
+                $scope.$parent.$imagesLoaded = true;
+              });
+            });
+
+            if (typeof events !== 'undefined') {
+              angular.forEach(events, function (fn, eventName) {
+                imgLoad.on(eventName, fn);
+              });
+            }
+          };
+
+          if (vm.imagesLoadedWatch) {
+            $scope.$watch('vm.imagesLoadedWatch', function () {
+              init();
+            });
+          } else {
+            init();
           }
-        };
-      }
-    ]);
+        }]
+      };
+    }
+  );
 
   angular.module('angular-images-loaded', ['hj.imagesLoaded']);
 })();

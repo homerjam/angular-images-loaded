@@ -8,11 +8,16 @@
 
 </head>
 
-<body ng-app="ExampleApp" ng-controller="ExampleCtrl">
+<body ng-app="ExampleApp" ng-controller="ExampleCtrl as vm">
 
-    <div class="wrapper" images-loaded="imgLoadedEvents">
+    <div class="wrapper images-loaded"
+      images-loaded-events="vm.imageLoadedEvents"
+      images-loaded-options="{ background: true }"
+      images-loaded-watch="vm.image">
 
-        <img ng-src="example/test.jpg">
+        <img ng-src="{{vm.image}}" ng-click="vm.clickImage()">
+
+        <p ng-show="$imagesLoaded">Caption here</p>
 
     </div>
 
