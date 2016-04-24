@@ -25,9 +25,9 @@ Remember to include `imagesloaded.pkgd.js` somewhere.
 	app.controller('MyCtrl', function($scope) {
 		var ctrl = this;
 
-    $scope.$on('imagesLoaded:loaded', function(event, element){
-      console.log('loaded', element);
-    });
+		$scope.$on('imagesLoaded:loaded', function(event, element){
+			console.log('loaded', element);
+		});
 
 		ctrl.imgLoadedEvents = {
 
@@ -58,8 +58,8 @@ Note: If using class method then class will be removed on load - useful for css 
 	</div>
 
 	<div images-loaded="ctrl.imgLoadedEvents"
-    images-loaded-watch="vm.image"
-    images-loaded-options="{ background: true }">
+		images-loaded-watch="vm.image"
+		images-loaded-options="{ background: true }">
 
 		<div ng-style="{ backgroundImage: 'url(' + vm.image + ')' }">
 
