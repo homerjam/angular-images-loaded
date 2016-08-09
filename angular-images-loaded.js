@@ -13,7 +13,7 @@
         },
         bindToController: true,
         controllerAs: 'vm',
-        controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+        controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element, $attrs, $timeout) {
           var vm = this;
 
           var events = vm.imagesLoaded || vm.imagesLoadedEvents;
@@ -50,7 +50,7 @@
               init();
             });
           } else {
-            init();
+            $timeout(init);
           }
         }]
       };
