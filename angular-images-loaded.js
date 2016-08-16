@@ -46,7 +46,7 @@
 
             eventNames.forEach(function (eventName) {
               imgLoad.on(eventName, function () {
-                if (typeof events[eventName] === 'function') {
+                if (events && typeof events[eventName] === 'function') {
                   events[eventName].apply(this, [this, $element]);
                 }
 
