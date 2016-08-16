@@ -13,7 +13,9 @@
     <div class="wrapper images-loaded"
       images-loaded-events="vm.imageLoadedEvents"
       images-loaded-options="{ background: true }"
-      images-loaded-watch="vm.image">
+      images-loaded-watch="vm.image"
+      images-loaded-done="vm.done = true"
+      ng-style="{ color: vm.done ? 'green' : 'red' }">
 
         <img ng-src="{{vm.image}}" ng-click="vm.clickImage()">
 

@@ -10,16 +10,22 @@
           imagesLoadedEvents: '=?',
           imagesLoadedClass: '=?',
           imagesLoadedWatch: '=?',
+          imagesLoadedAlways: '=?',
+          imagesLoadedDone: '=?',
+          imagesLoadedFail: '=?',
         },
         bindToController: true,
         controllerAs: 'vm',
         controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element, $attrs, $timeout) {
           var vm = this;
 
+          var eventNames = ['always', 'done', 'fail'];
           var events = vm.imagesLoaded || vm.imagesLoadedEvents;
           var options = vm.imagesLoadedOptions || {};
           var className = vm.imagesLoadedClass || 'images-loaded';
           var classUsed = $element.hasClass(className);
+
+          $element.addClass(className);
 
           var init = function () {
             $scope.$emit('imagesLoaded:started', $element);
@@ -38,11 +44,17 @@
               });
             });
 
-            if (typeof events !== 'undefined') {
-              angular.forEach(events, function (fn, eventName) {
-                imgLoad.on(eventName, fn);
+            eventNames.forEach(function (eventName) {
+              imgLoad.on(eventName, function () {
+                if (typeof events[eventName] === 'function') {
+                  events[eventName].apply(this, [this, $element]);
+                }
+
+                if (typeof vm['imagesLoaded' + (eventName[0].toUpperCase() + eventName.slice(1))] === 'function') {
+                  vm['imagesLoaded' + (eventName[0].toUpperCase() + eventName.slice(1))].apply(this, [this, $element]);
+                }
               });
-            }
+            });
           };
 
           if (vm.imagesLoadedWatch) {
