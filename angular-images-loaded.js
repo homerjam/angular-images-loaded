@@ -10,9 +10,9 @@
           imagesLoadedEvents: '=?',
           imagesLoadedClass: '=?',
           imagesLoadedWatch: '=?',
-          imagesLoadedAlways: '=?',
-          imagesLoadedDone: '=?',
-          imagesLoadedFail: '=?',
+          imagesLoadedAlways: '&?',
+          imagesLoadedDone: '&?',
+          imagesLoadedFail: '&?',
         },
         bindToController: true,
         controllerAs: 'vm',
@@ -49,6 +49,7 @@
                 if (events && typeof events[eventName] === 'function') {
                   events[eventName].apply(this, [this, $element]);
                 }
+
 
                 if (typeof vm['imagesLoaded' + (eventName[0].toUpperCase() + eventName.slice(1))] === 'function') {
                   vm['imagesLoaded' + (eventName[0].toUpperCase() + eventName.slice(1))].apply(this, [this, $element]);
