@@ -1,6 +1,11 @@
 (function () {
   'use strict';
   angular.module('hj.imagesLoaded', [])
+    .config(['$compileProvider', function($compileProvider) {
+      if ($compileProvider.preAssignBindingsEnabled) {
+        $compileProvider.preAssignBindingsEnabled(true); // https://github.com/angular/angular.js/blob/master/CHANGELOG.md#breaking-changes
+      }
+    }])
     .directive('imagesLoaded', function () {
       return {
         restrict: 'AC',
@@ -49,7 +54,6 @@
                 if (events && typeof events[eventName] === 'function') {
                   events[eventName].apply(this, [this, $element]);
                 }
-
 
                 if (typeof vm['imagesLoaded' + (eventName[0].toUpperCase() + eventName.slice(1))] === 'function') {
                   vm['imagesLoaded' + (eventName[0].toUpperCase() + eventName.slice(1))].apply(this, [this, $element]);
