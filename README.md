@@ -64,3 +64,7 @@ Note: If using class method then class will be removed on load - useful for css 
 		<div ng-style="{ backgroundImage: 'url(' + vm.image + ')' }">
 
 	</div>
+
+## License
+
+MIT
