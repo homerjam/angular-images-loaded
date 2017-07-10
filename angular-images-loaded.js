@@ -55,7 +55,7 @@
 
             eventNames.forEach(function (eventName) {
               imgLoad.on(eventName, function () {
-                const callbackArguments = [this, $element].concat(Array.prototype.slice.call(arguments));
+                var callbackArguments = [this, $element].concat(Array.prototype.slice.call(arguments));
                 if (events && typeof events[eventName] === 'function') {
                   events[eventName].apply(this, callbackArguments);
                 }
