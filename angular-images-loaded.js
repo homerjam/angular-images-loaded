@@ -18,17 +18,19 @@
           imagesLoadedAlways: '&?',
           imagesLoadedDone: '&?',
           imagesLoadedFail: '&?',
+          imagesLoadedSelector: '@?'
         },
         bindToController: true,
         controllerAs: 'vm',
         controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element, $attrs, $timeout) {
           var vm = this;
 
-          var eventNames = ['always', 'done', 'fail'];
+          var eventNames = ['always', 'done', 'fail', 'progress'];
           var events = vm.imagesLoaded || vm.imagesLoadedEvents;
           var options = vm.imagesLoadedOptions || {};
           var className = vm.imagesLoadedClass || 'images-loaded';
           var classUsed = $element.hasClass(className);
+          var selector = vm.imagesLoadedSelector;
 
           $element.addClass(className);
 
@@ -39,7 +41,9 @@
               $element.addClass(className);
             }
 
-            var imgLoad = imagesLoaded($element[0], options, function () {
+            var elements = selector ? $element.find(selector) : $element[0];
+
+            var imgLoad = imagesLoaded(elements, options, function () {
               $scope.$emit('imagesLoaded:loaded', $element);
 
               $element.removeClass(className);
@@ -51,12 +55,13 @@
 
             eventNames.forEach(function (eventName) {
               imgLoad.on(eventName, function () {
+                var callbackArguments = [this, $element].concat(Array.prototype.slice.call(arguments));
                 if (events && typeof events[eventName] === 'function') {
-                  events[eventName].apply(this, [this, $element]);
+                  events[eventName].apply(this, callbackArguments);
                 }
 
                 if (typeof vm['imagesLoaded' + (eventName[0].toUpperCase() + eventName.slice(1))] === 'function') {
-                  vm['imagesLoaded' + (eventName[0].toUpperCase() + eventName.slice(1))].apply(this, [this, $element]);
+                  vm['imagesLoaded' + (eventName[0].toUpperCase() + eventName.slice(1))].apply(this, callbackArguments);
                 }
               });
             });
