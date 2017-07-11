@@ -30,7 +30,7 @@
           var options = vm.imagesLoadedOptions || {};
           var className = vm.imagesLoadedClass || 'images-loaded';
           var classUsed = $element.hasClass(className);
-          var selector = vm.imagesLoadedClass;
+          var selector = vm.imagesLoadedSelector;
 
           $element.addClass(className);
 
