@@ -20,8 +20,7 @@
         controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element, $attrs, $timeout) {
           var vm = this;
 
-          vm.$onInit = () => {
-
+          vm.$onInit = function () {
             var eventNames = ['always', 'done', 'fail', 'progress'];
             var events = vm.imagesLoaded || vm.imagesLoadedEvents;
             var options = vm.imagesLoadedOptions || {};
@@ -71,8 +70,7 @@
             } else {
               $timeout(init);
             }
-
-          }
+          };
         }]
       };
     }
